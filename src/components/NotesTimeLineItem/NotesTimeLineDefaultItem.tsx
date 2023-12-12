@@ -6,7 +6,7 @@ import {
   TimelineItem,
   TimelineSeparator
 } from '@mui/lab';
-import { Box, styled } from '@mui/material';
+import { Box, Button, Typography, styled } from '@mui/material';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { NotesTypeItems } from '../NotesTypeItems';
 import { NoteType } from '../../types';
@@ -23,7 +23,7 @@ const StyledTextArea = styled('textarea')(({ theme }) => ({
   padding: theme.spacing(1, 2),
   transition: 'all .2s linear',
   '&:focus, &:hover': {
-    border: `2px solid ${theme.palette.success.light}`
+    border: `2px solid ${theme.palette.success.main}`
   }
 }));
 
@@ -53,6 +53,9 @@ export const NotesTimeLineDefaultItem: React.FC<NotesTimeLineDefaultItemProps> =
           <StyledTextArea placeholder={`Add a note about ${contactPerson}...`} />
           <Box display='flex' justifyContent='space-between' marginTop={2}>
             <NotesTypeItems selectedNoteType={selectedNoteType} handleSelectedNoteType={handleSelectedNoteType} />
+            <Button color='success' variant='contained'>
+              <Typography color='white'>Submit</Typography>
+            </Button>
           </Box>
         </StyledPaper>
       </TimelineContent>

@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import { lightBlue, grey, common } from '@mui/material/colors';
+import { lightBlue, grey, green, common } from '@mui/material/colors';
 
 export const theme = createTheme({
   palette: {
@@ -14,7 +14,15 @@ export const theme = createTheme({
     info: {
       main: common.white,
       dark: common.black
+    },
+    success: {
+      main: green[400]
     }
   },
   spacing: 5,
+  typography: {
+    body1: {
+      textTransform: 'capitalize',
+    }
+  }
 });
