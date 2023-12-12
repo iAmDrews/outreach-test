@@ -7,18 +7,26 @@ import {
   TimelineOppositeContent,
   TimelineSeparator
 } from '@mui/lab';
+import { Typography } from '@mui/material';
 import { Note } from '../../types';
 import { getNoteIconByType } from '../../utils';
 import { StyledPaper } from '../../common-styles';
 
 interface NotesTimeLineItemProps {
-  contactPerson: string;
-  user: string;
   note: Note;
 }
 
-export const NotesTimeLineItem: React.FC<NotesTimeLineItemProps> = ({ contactPerson, user, note }) => {
-  const Icon = getNoteIconByType(note.type);
+export const NotesTimeLineItem: React.FC<NotesTimeLineItemProps> = ({ note }) => {
+  const {
+    type,
+    timestamp,
+    currentUser,
+    currentContactPerson,
+    title,
+    description
+  } = note;
+
+  const Icon = getNoteIconByType(type);
 
   return (
     <TimelineItem>
@@ -28,7 +36,7 @@ export const NotesTimeLineItem: React.FC<NotesTimeLineItemProps> = ({ contactPer
         variant='body2'
         color='text.secondary'
       >
-        {note.timestamp}
+        {timestamp}
       </TimelineOppositeContent>
       <TimelineSeparator>
         <TimelineConnector />
@@ -39,7 +47,16 @@ export const NotesTimeLineItem: React.FC<NotesTimeLineItemProps> = ({ contactPer
       </TimelineSeparator>
       <TimelineContent>
         <StyledPaper>
-          Test Line
+          <Typography fontWeight='bold'>
+            <Typography component='span' color='primary.main' fontWeight='inherit'>{currentUser}</Typography>
+            <Typography component='span' fontWeight='inherit' marginX={1} textTransform='lowercase'>{title}</Typography>
+            <Typography component='span' color='primary.main' fontWeight='inherit'>{currentContactPerson}</Typography>
+          </Typography>
+          {description && (
+            <Typography variant='body2' textTransform='none' marginTop={1}>
+              {description}
+            </Typography>
+          )}
         </StyledPaper>
       </TimelineContent>
     </TimelineItem>

@@ -6,11 +6,13 @@ import {
   TimelineItem,
   TimelineSeparator
 } from '@mui/lab';
-import { Box, Button, Typography, styled } from '@mui/material';
+import { Box, Button, Typography, Collapse, styled } from '@mui/material';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { NotesTypeItems } from '../NotesTypeItems';
-import { NoteType } from '../../types';
+import { Note, NoteType } from '../../types';
 import { StyledPaper } from '../../common-styles';
+import { v4 as uuid } from "uuid";
+import { getNoteTitleByType } from '../../utils';
 
 const StyledTextArea = styled('textarea')(({ theme }) => ({
   border: `2px solid ${theme.palette.secondary.dark}`,
@@ -30,10 +32,13 @@ const StyledTextArea = styled('textarea')(({ theme }) => ({
 interface NotesTimeLineDefaultItemProps {
   contactPerson: string;
   user: string;
+  handleNotes: (note: Note) => void
 }
 
-export const NotesTimeLineDefaultItem: React.FC<NotesTimeLineDefaultItemProps> = ({ contactPerson, user }) => {
+export const NotesTimeLineDefaultItem: React.FC<NotesTimeLineDefaultItemProps> = ({ contactPerson, user, handleNotes }) => {
+  const [textAreaValue, setTextAreaValue] = React.useState<string>('');
   const [selectedNoteType, setSelectedNoteType] = React.useState<NoteType>(NoteType.MESSAGE);
+  const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
 
   const handleSelectedNoteType = (noteType: NoteType) => {
     setSelectedNoteType(noteType);
@@ -49,14 +54,48 @@ export const NotesTimeLineDefaultItem: React.FC<NotesTimeLineDefaultItemProps> =
         <TimelineConnector />
       </TimelineSeparator>
       <TimelineContent>
-        <StyledPaper>
-          <StyledTextArea placeholder={`Add a note about ${contactPerson}...`} />
-          <Box display='flex' justifyContent='space-between' marginTop={2}>
-            <NotesTypeItems selectedNoteType={selectedNoteType} handleSelectedNoteType={handleSelectedNoteType} />
-            <Button color='success' variant='contained'>
-              <Typography color='white'>Submit</Typography>
-            </Button>
-          </Box>
+        <StyledPaper
+          onFocus={() => setIsExpanded(true)}
+          onBlur={() => setIsExpanded(false)}
+        >
+          <StyledTextArea
+            placeholder={`Add a note about ${contactPerson}...`}
+            value={textAreaValue}
+            onChange={(event) => setTextAreaValue(event.target.value)}
+          />
+          <Collapse
+            in={isExpanded}
+            timeout={200}
+            tabIndex={0}
+          >
+            <Box display='flex' justifyContent='space-between' marginTop={3}>
+              <NotesTypeItems selectedNoteType={selectedNoteType} handleSelectedNoteType={handleSelectedNoteType} />
+              <Button
+                color='success'
+                variant='contained'
+                sx={{ boxShadow: 'none' }}
+                onClick={() => {
+                  handleNotes({
+                    id: uuid(),
+                    timestamp: '3d',
+                    type: selectedNoteType,
+                    currentUser: user,
+                    currentContactPerson: contactPerson,
+                    title: getNoteTitleByType(selectedNoteType),
+                    description: textAreaValue,
+                  });
+
+                  //reset values
+                  setTextAreaValue('');
+                  setSelectedNoteType(NoteType.MESSAGE);
+                }}
+              >
+                <Typography color='info.main'>
+                  Submit
+                </Typography>
+              </Button>
+            </Box>
+          </Collapse>
         </StyledPaper>
       </TimelineContent>
     </TimelineItem>

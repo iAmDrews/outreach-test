@@ -7,8 +7,11 @@ export enum NoteType {
 }
 
 export interface Note {
+  id: string;
   timestamp: string;
   type: NoteType;
+  currentUser: string;
+  currentContactPerson: string;
   title: string;
-  description: string;
+  description?: string;
 }
