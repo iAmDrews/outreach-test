@@ -17,6 +17,20 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   boxShadow: 'none'
 }))
 
+const StyledTextArea = styled("textarea")(({ theme }) => ({
+  border: '2px solid #FFF',
+  width: '100%',
+  boxSizing: 'border-box',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: '#FFF',
+  resize: 'none',
+  outline: 'none',
+  transition: 'all .2s linear',
+  '&:focus, &:hover': {
+    border: `2px solid ${theme.palette.success.light}`
+  }
+}));
+
 export const NotesTimeLineItem: React.FC = () => {
   return (
     <TimelineItem>
@@ -36,7 +50,9 @@ export const NotesTimeLineItem: React.FC = () => {
         <TimelineConnector />
       </TimelineSeparator>
       <TimelineContent>
-        <StyledPaper>Test Line</StyledPaper>
+        <StyledPaper>
+          <StyledTextArea />
+        </StyledPaper>
       </TimelineContent>
     </TimelineItem>
   )
