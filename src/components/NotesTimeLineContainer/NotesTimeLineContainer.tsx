@@ -1,13 +1,16 @@
 import * as React from 'react';
 import Timeline from '@mui/lab/Timeline';
-import { NotesTimeLineItem } from '../NotesTimeLineItem/NotesTimeLineItem';
+import { NotesTimeLineDefaultItem } from '../NotesTimeLineItem';
 
-export const NotesTimeLineContainer: React.FC = () => {
+interface NotesTimeLineContainerProps {
+  contactPerson: string;
+  user: string;
+}
+
+export const NotesTimeLineContainer: React.FC<NotesTimeLineContainerProps> = ({ contactPerson, user }) => {
   return (
-    <form>
-      <Timeline position="right">
-        <NotesTimeLineItem />
-      </Timeline>
-    </form>
+    <Timeline position='right'>
+      <NotesTimeLineDefaultItem user={user} contactPerson={contactPerson} />
+    </Timeline>
   );
 }
