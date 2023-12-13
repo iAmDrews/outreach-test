@@ -19,12 +19,12 @@ const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
       color: theme.palette.info.main
     },
   },
-}))
+}));
 
 interface NotesTypeItemsProps {
   selectedNoteType: NoteType;
   handleSelectedNoteType: (noteType: NoteType) => void;
-}
+};
 
 export const NotesTypeItems: React.FC<NotesTypeItemsProps> = ({ selectedNoteType, handleSelectedNoteType }) => {
 

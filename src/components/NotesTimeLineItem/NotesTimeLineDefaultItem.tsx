@@ -32,10 +32,10 @@ const StyledTextArea = styled('textarea')(({ theme }) => ({
 interface NotesTimeLineDefaultItemProps {
   contactPerson: string;
   user: string;
-  handleNotes: (note: Note) => void
-}
+  handleCreateNotes: (note: Note) => void;
+};
 
-export const NotesTimeLineDefaultItem: React.FC<NotesTimeLineDefaultItemProps> = ({ contactPerson, user, handleNotes }) => {
+export const NotesTimeLineDefaultItem: React.FC<NotesTimeLineDefaultItemProps> = ({ contactPerson, user, handleCreateNotes }) => {
   const [textAreaValue, setTextAreaValue] = React.useState<string>('');
   const [selectedNoteType, setSelectedNoteType] = React.useState<NoteType>(NoteType.MESSAGE);
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
@@ -69,15 +69,18 @@ export const NotesTimeLineDefaultItem: React.FC<NotesTimeLineDefaultItemProps> =
             tabIndex={0}
           >
             <Box display='flex' justifyContent='space-between' marginTop={3}>
-              <NotesTypeItems selectedNoteType={selectedNoteType} handleSelectedNoteType={handleSelectedNoteType} />
+              <NotesTypeItems
+                selectedNoteType={selectedNoteType}
+                handleSelectedNoteType={handleSelectedNoteType}
+              />
               <Button
                 color='success'
                 variant='contained'
                 sx={{ boxShadow: 'none' }}
                 onClick={() => {
-                  handleNotes({
+                  handleCreateNotes({
                     id: uuid(),
-                    timestamp: '3d',
+                    timestamp: new Date().getTime(),
                     type: selectedNoteType,
                     currentUser: user,
                     currentContactPerson: contactPerson,
