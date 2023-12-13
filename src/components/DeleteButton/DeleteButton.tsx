@@ -16,7 +16,7 @@ interface DeleteButtonprops {
 
 export const DeleteButton: React.FC<DeleteButtonprops> = ({ handleDeleteNote }) => (
   <Tooltip
-    title="Delete"
+    title='Delete'
     placement='bottom-end'
     componentsProps={{
       tooltip: {

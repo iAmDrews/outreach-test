@@ -1,6 +1,6 @@
 import { NoteType } from "../types";
 
-export const getNoteTitleByType = (noteType: NoteType): string => {
+export const getNoteTitleByType = (noteType: NoteType | string): string => {
   switch (noteType) {
     case NoteType.MESSAGE:
       return 'added a note to';
@@ -14,7 +14,7 @@ export const getNoteTitleByType = (noteType: NoteType): string => {
     case NoteType.BEER:
       return 'had a beer with';
 
-    case NoteType.MEETING_NOTE:
+    case NoteType.MEETING:
       return 'had a meeting with';
 
     default:

@@ -67,6 +67,7 @@ export const NotesTimeLineDefaultItem: React.FC<NotesTimeLineDefaultItemProps> =
             in={isExpanded}
             timeout={200}
             tabIndex={0}
+            data-testid='collapse'
           >
             <Box display='flex' justifyContent='space-between' marginTop={3}>
               <NotesTypeItems

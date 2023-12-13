@@ -3,7 +3,7 @@ export enum NoteType {
   PHONE = 'phone',
   COFFE = 'coffe',
   BEER = 'beer',
-  MEETING_NOTE = 'meeting note',
+  MEETING = 'meeting',
 };
 
 export interface Note {

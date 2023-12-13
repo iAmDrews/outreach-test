@@ -34,7 +34,7 @@ export const NotesTimeLineItem: React.FC<NotesTimeLineItemProps> = ({ note, hand
   const Icon = getNoteIconByType(type);
 
   return (
-    <TimelineItem>
+    <TimelineItem data-testid='created-note'>
       <TimelineOppositeContent
         sx={{ m: 'auto 0' }}
         align='right'
@@ -53,6 +53,7 @@ export const NotesTimeLineItem: React.FC<NotesTimeLineItemProps> = ({ note, hand
       <TimelineContent
         onMouseOver={() => setIsVisibleDeleteButton(true)}
         onMouseOut={() => setIsVisibleDeleteButton(false)}
+        data-testid='content'
       >
         <StyledPaper>
           <Box display='flex' justifyContent='space-between' alignItems='center' minHeight={25}>

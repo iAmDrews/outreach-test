@@ -5,7 +5,7 @@ import LocalCafeIcon from '@mui/icons-material/LocalCafe';
 import SportsBarIcon from '@mui/icons-material/SportsBar';
 import PersonIcon from '@mui/icons-material/Person';
 
-export const getNoteIconByType = (noteType: NoteType): Icon | null => {
+export const getNoteIconByType = (noteType: NoteType | string): Icon | null => {
   switch (noteType) {
     case NoteType.MESSAGE:
       return ChatBubbleIcon;
@@ -19,8 +19,8 @@ export const getNoteIconByType = (noteType: NoteType): Icon | null => {
     case NoteType.BEER:
       return SportsBarIcon;
 
-    case NoteType.MEETING_NOTE:
-      return PersonIcon
+    case NoteType.MEETING:
+      return PersonIcon;
 
     default:
       return null;

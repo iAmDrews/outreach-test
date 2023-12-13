@@ -39,6 +39,8 @@ export const NotesTypeItems: React.FC<NotesTypeItemsProps> = ({ selectedNoteType
               value={noteType}
               selected={noteType === selectedNoteType}
               onChange={() => handleSelectedNoteType(noteType)}
+              data-testid='toggle-button'
+              aria-label={noteType}
             >
               {NoteIcon && <NoteIcon color='secondary' fontSize='small' />}
             </StyledToggleButton>
