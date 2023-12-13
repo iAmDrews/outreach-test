@@ -40,7 +40,7 @@ export const NotesTimeLineDefaultItem: React.FC<NotesTimeLineDefaultItemProps> =
   const [selectedNoteType, setSelectedNoteType] = React.useState<NoteType>(NoteType.MESSAGE);
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
 
-  const handleSelectedNoteType = (noteType: NoteType) => {
+  const handleSelectedNoteType = (noteType: NoteType): void => {
     setSelectedNoteType(noteType);
   }
 

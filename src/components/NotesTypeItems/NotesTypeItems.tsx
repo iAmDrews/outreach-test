@@ -27,7 +27,6 @@ interface NotesTypeItemsProps {
 };
 
 export const NotesTypeItems: React.FC<NotesTypeItemsProps> = ({ selectedNoteType, handleSelectedNoteType }) => {
-
   return (
     <Stack direction='row' spacing={1}>
       {

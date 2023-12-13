@@ -11,18 +11,22 @@ interface NotesTimeLineContainerProps {
 export const NotesTimeLineContainer: React.FC<NotesTimeLineContainerProps> = ({ contactPerson, user }) => {
   const [notes, setNotes] = React.useState<Note[]>([]);
 
-  const handleCreateNotes = (note: Note) => {
+  const handleCreateNotes = (note: Note): void => {
     setNotes((prevNotes: Note[]) => [...prevNotes, note])
   }
 
-  const handleDeleteNote = (id: string) => {
+  const handleDeleteNote = (id: string): void => {
     setNotes((prevNotes: Note[]) => prevNotes.filter((note: Note) => note.id !== id))
+  }
+
+  const getSortedNotes = (a: Note, b: Note): number => {
+    return b.timestamp - a.timestamp;
   }
 
   return (
     <Timeline position='right'>
       <NotesTimeLineDefaultItem user={user} contactPerson={contactPerson} handleCreateNotes={handleCreateNotes} />
-      {notes.map((note) => (
+      {notes.sort(getSortedNotes).map((note) => (
         <NotesTimeLineItem key={note.id} note={note} handleDeleteNote={handleDeleteNote} />
       ))}
     </Timeline>

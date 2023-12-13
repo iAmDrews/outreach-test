@@ -12,6 +12,7 @@ import { Note } from '../../types';
 import { getNoteIconByType } from '../../utils';
 import { StyledPaper } from '../../common-styles';
 import { DeleteButton } from '../DeleteButton';
+import ReactTimeAgo from 'react-time-ago';
 
 interface NotesTimeLineItemProps {
   note: Note;
@@ -40,7 +41,7 @@ export const NotesTimeLineItem: React.FC<NotesTimeLineItemProps> = ({ note, hand
         variant='body2'
         color='text.secondary'
       >
-        {timestamp}
+        <ReactTimeAgo date={timestamp} locale="en-US" timeStyle='twitter' />
       </TimelineOppositeContent>
       <TimelineSeparator>
         <TimelineConnector />
