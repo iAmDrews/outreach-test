@@ -9,7 +9,7 @@ describe('#DeleteButton', () => {
   it('should render DeleteButton component with Tooltip', async () => {
     render(<DeleteButton handleDeleteNote={mockHandleDeleteNote} />);
 
-    const deleteButton = screen.getByRole('button');
+    const deleteButton = screen.getByTestId('delete-button');
     expect(deleteButton).toBeInTheDocument();
 
     userEvent.hover(deleteButton);
@@ -23,7 +23,7 @@ describe('#DeleteButton', () => {
   it('should call handleDeleteNote when the button is clicked', () => {
     render(<DeleteButton handleDeleteNote={mockHandleDeleteNote} />);
 
-    const deleteButton = screen.getByRole('button');
+    const deleteButton = screen.getByTestId('delete-button');
     userEvent.click(deleteButton);
 
     expect(mockHandleDeleteNote).toHaveBeenCalledTimes(1);

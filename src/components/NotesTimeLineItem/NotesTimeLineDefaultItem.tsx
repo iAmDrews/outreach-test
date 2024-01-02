@@ -30,14 +30,15 @@ const StyledTextArea = styled('textarea')(({ theme }) => ({
 }));
 
 interface NotesTimeLineDefaultItemProps {
-  contactPerson: string;
-  user: string;
   handleCreateNotes: (note: Note) => void;
+  currentNote?: Note;
+  contactPerson?: string;
+  user?: string;
 };
 
-export const NotesTimeLineDefaultItem: React.FC<NotesTimeLineDefaultItemProps> = ({ contactPerson, user, handleCreateNotes }) => {
-  const [textAreaValue, setTextAreaValue] = React.useState<string>('');
-  const [selectedNoteType, setSelectedNoteType] = React.useState<NoteType>(NoteType.MESSAGE);
+export const NotesTimeLineDefaultItem: React.FC<NotesTimeLineDefaultItemProps> = ({ contactPerson, user, handleCreateNotes, currentNote }) => {
+  const [textAreaValue, setTextAreaValue] = React.useState<string>(currentNote?.description ?? '');
+  const [selectedNoteType, setSelectedNoteType] = React.useState<NoteType>(currentNote?.type ?? NoteType.MESSAGE);
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
 
   const handleSelectedNoteType = (noteType: NoteType): void => {
@@ -59,7 +60,7 @@ export const NotesTimeLineDefaultItem: React.FC<NotesTimeLineDefaultItemProps> =
           onBlur={() => setIsExpanded(false)}
         >
           <StyledTextArea
-            placeholder={`Add a note about ${contactPerson}...`}
+            placeholder={`Add a note about ${currentNote?.currentContactPerson ?? contactPerson}...`}
             value={textAreaValue}
             onChange={(event) => setTextAreaValue(event.target.value)}
           />
@@ -79,15 +80,22 @@ export const NotesTimeLineDefaultItem: React.FC<NotesTimeLineDefaultItemProps> =
                 variant='contained'
                 sx={{ boxShadow: 'none' }}
                 onClick={() => {
-                  handleCreateNotes({
-                    id: uuid(),
-                    timestamp: new Date().getTime(),
-                    type: selectedNoteType,
-                    currentUser: user,
-                    currentContactPerson: contactPerson,
-                    title: getNoteTitleByType(selectedNoteType),
-                    description: textAreaValue,
-                  });
+                  currentNote ?
+                    handleCreateNotes({
+                      ...currentNote,
+                      type: selectedNoteType,
+                      title: getNoteTitleByType(selectedNoteType),
+                      description: textAreaValue,
+                    }) :
+                    handleCreateNotes({
+                      id: uuid(),
+                      timestamp: new Date().getTime(),
+                      type: selectedNoteType,
+                      currentUser: user || "",
+                      currentContactPerson: contactPerson || "",
+                      title: getNoteTitleByType(selectedNoteType),
+                      description: textAreaValue,
+                    })
 
                   //reset values
                   setTextAreaValue('');

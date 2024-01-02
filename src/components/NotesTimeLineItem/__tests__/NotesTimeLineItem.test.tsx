@@ -17,10 +17,20 @@ const testNote = {
 };
 
 const mockHandleDeleteNote = jest.fn();
+const mockHandleIsEditNote = jest.fn();
 
 describe('#NotesTimeLineItem', () => {
   it('should render NotesTimeLineItem component', async () => {
-    render(<NotesTimeLineItem note={testNote} handleDeleteNote={mockHandleDeleteNote} />);
+    render(
+      <NotesTimeLineItem
+        note={testNote}
+        editableNote={null}
+        handleDeleteNote={mockHandleDeleteNote}
+        handleCreateNotes={jest.fn()}
+        handleEditNote={jest.fn()}
+        handleIsEditNote={jest.fn()}
+      />
+    );
 
     const svgTimeline = screen.getByTestId('SportsBarIcon');
     const content = screen.getByTestId('content');
@@ -38,19 +48,49 @@ describe('#NotesTimeLineItem', () => {
 
     userEvent.hover(content);
 
-    const deleteButton = screen.getByRole('button');
+    const deleteButton = screen.getByTestId('delete-button');
     expect(deleteButton).toBeInTheDocument();
   });
 
   it('should call mockHandleDeleteNote when DeleteButton is clicked', () => {
-    render(<NotesTimeLineItem note={testNote} handleDeleteNote={mockHandleDeleteNote} />);
+    render(
+      <NotesTimeLineItem
+        note={testNote}
+        editableNote={null}
+        handleDeleteNote={mockHandleDeleteNote}
+        handleCreateNotes={jest.fn()}
+        handleEditNote={jest.fn()}
+        handleIsEditNote={jest.fn()}
+      />
+    );
 
     const content = screen.getByTestId('content');
     userEvent.hover(content);
 
-    const deleteButton = screen.getByRole('button');
+    const deleteButton = screen.getByTestId('delete-button');
     userEvent.click(deleteButton);
 
     expect(mockHandleDeleteNote).toHaveBeenCalledWith('test-id');
+  });
+
+  it('should call mockHandleIsEditNote when EditButton is clicked', () => {
+    render(
+      <NotesTimeLineItem
+        note={testNote}
+        editableNote={null}
+        handleDeleteNote={jest.fn()}
+        handleCreateNotes={jest.fn()}
+        handleEditNote={jest.fn()}
+        handleIsEditNote={mockHandleIsEditNote}
+      />
+    );
+
+    const content = screen.getByTestId('content');
+    userEvent.hover(content);
+
+    const editButton = screen.getByTestId('edit-button');
+    userEvent.click(editButton);
+
+    expect(mockHandleIsEditNote).toHaveBeenCalledWith('test-id');
   });
 });

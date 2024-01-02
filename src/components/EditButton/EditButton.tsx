@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { Tooltip } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import EditIcon from '@mui/icons-material/Edit';
 import { StyledButton } from '../../common-styles';
 
-interface DeleteButtonprops {
-  handleDeleteNote: () => void;
+interface EditButtonProps {
+  handleIsEditNote: () => void;
 };
 
-export const DeleteButton: React.FC<DeleteButtonprops> = ({ handleDeleteNote }) => (
+export const EditButton: React.FC<EditButtonProps> = ({ handleIsEditNote }) => (
   <Tooltip
-    title='Delete'
+    title='Edit'
     placement='bottom-end'
     componentsProps={{
       tooltip: {
@@ -30,11 +30,11 @@ export const DeleteButton: React.FC<DeleteButtonprops> = ({ handleDeleteNote }) 
     <StyledButton
       color='primary'
       variant='contained'
-      onClick={handleDeleteNote}
+      onClick={handleIsEditNote}
       sx={{ boxShadow: 'none' }}
-      data-testid='delete-button'
+      data-testid='edit-button'
     >
-      <ArrowDropDownIcon fontSize='small' color='info' />
+      <EditIcon fontSize='small' color='info' />
     </StyledButton>
   </Tooltip>
 )
